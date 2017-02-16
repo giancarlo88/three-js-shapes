@@ -15,15 +15,15 @@ class App extends Component {
     this._onAnimate = () => {
       this.setState({
         cubeRotation: new THREE.Euler(
-          this.state.cubeRotation.x + 0.01, 
-          0,
-          this.state.cubeRotation.z + 0.01
-        )
+          this.state.cubeRotation.x + .01, 
+          this.state.cubeRotation.y + .01,
+          0
+          )
       })
     }
   }
   componentDidMount () {
-        this.mesh.applyMatrix( new THREE.Matrix4().makeScale( 1, 1, .33, .25 ));
+        //this.mesh.applyMatrix( new THREE.Matrix4().makeScale( 1, 1, .33, .25 ));
   }
   meshRef(mesh) {
     this.mesh = mesh;
@@ -40,7 +40,7 @@ class App extends Component {
         onAnimate={this._onAnimate}
         clearAlpha={.5}
         alpha={true}
-        pixelRatio={.25}
+        pixelRatio={1}
         shadowMapEnabled={true}
       >
         <scene
@@ -63,7 +63,6 @@ class App extends Component {
             position={new THREE.Vector3(0, 0, 5)}
             />
           <mesh
-            ref={this.meshRef.bind(this)}
             rotation={this.state.cubeRotation}
             castShadow={true}
             position={THREE.center}
@@ -75,7 +74,7 @@ class App extends Component {
              depth={2}
             />
              <meshPhongMaterial
-            color='darkorange'
+            color={Number('0x'+Math.floor(Math.random()*16777215).toString(16))}
           /> 
           </mesh>
         </scene>
