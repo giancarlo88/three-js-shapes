@@ -53,21 +53,29 @@ class App extends Component {
             near={0.1}
             far={100}
             position={this.cameraPosition}
-          
           />
+           <ambientLight 
+            color="white"
+            />
+          <directionalLight
+            color="white"
+            pointTo={THREE.center}
+            />
           <mesh
             ref={this.meshRef.bind(this)}
             rotation={this.state.cubeRotation}
             castShadow={true}
+            position={THREE.center}
           >
+         
             <sphereGeometry 
              radius={1.5}
              widthSegments={40}
              heightSegments={40}
             />
-            <meshBasicMaterial
-              color={'violet'}
-            />
+             <meshPhongMaterial
+            color='violet'
+          /> 
           </mesh>
         </scene>
       </React3>
