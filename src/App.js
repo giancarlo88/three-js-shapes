@@ -58,8 +58,9 @@ class App extends Component {
             color="white"
             />
           <directionalLight
-            color="white"
-            pointTo={THREE.center}
+            color="grey"
+            lookAt={new THREE.Vector3(0, 0, 0)}
+            position={new THREE.Vector3(0, 0, 5)}
             />
           <mesh
             ref={this.meshRef.bind(this)}
