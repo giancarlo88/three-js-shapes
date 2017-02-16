@@ -17,7 +17,7 @@ class App extends Component {
         cubeRotation: new THREE.Euler(
           this.state.cubeRotation.x + 0.01, 
           0,
-          0
+          this.state.cubeRotation.z + 0.01
         )
       })
     }
@@ -40,7 +40,7 @@ class App extends Component {
         onAnimate={this._onAnimate}
         clearAlpha={.5}
         alpha={true}
-        pixelRatio={1}
+        pixelRatio={.25}
         shadowMapEnabled={true}
       >
         <scene
@@ -69,13 +69,13 @@ class App extends Component {
             position={THREE.center}
           >
          
-            <sphereGeometry 
-             radius={1.5}
-             widthSegments={40}
-             heightSegments={40}
+            <boxGeometry 
+             width={2}
+             height={2}
+             depth={2}
             />
              <meshPhongMaterial
-            color='lightblue'
+            color='darkorange'
           /> 
           </mesh>
         </scene>
