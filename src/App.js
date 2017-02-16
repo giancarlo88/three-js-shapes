@@ -22,9 +22,6 @@ class App extends Component {
       })
     }
   }
-  componentDidMount () {
-        this.mesh.applyMatrix( new THREE.Matrix4().makeScale( 1, 1, .33, .25 ));
-  }
   meshRef(mesh) {
     this.mesh = mesh;
   }
@@ -40,7 +37,7 @@ class App extends Component {
         onAnimate={this._onAnimate}
         clearAlpha={.5}
         alpha={true}
-        pixelRatio={.25}
+        pixelRatio={1}
         shadowMapEnabled={true}
       >
         <scene
@@ -63,7 +60,6 @@ class App extends Component {
             position={new THREE.Vector3(0, 0, 5)}
             />
           <mesh
-            ref={this.meshRef.bind(this)}
             rotation={this.state.cubeRotation}
             castShadow={true}
             position={THREE.center}
@@ -75,7 +71,7 @@ class App extends Component {
              depth={2}
             />
              <meshPhongMaterial
-            color='darkorange'
+            color='green'
           /> 
           </mesh>
         </scene>
