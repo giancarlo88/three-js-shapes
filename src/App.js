@@ -3,6 +3,8 @@ import * as THREE from 'three'
 import React3 from 'react-three-renderer'
 
 import './App.css';
+import { roundedRect } from './roundedrect'
+
 
 class App extends Component {
   constructor (props) {
@@ -22,12 +24,6 @@ class App extends Component {
       })
     }
   }
-  componentDidMount () {
-        this.mesh.applyMatrix( new THREE.Matrix4().makeScale( .85, .85, 1.55, 1.5 ));
-  }
-  meshRef(mesh) {
-    this.mesh = mesh;
-  }
   render() {
     const width = window.innerWidth
     const height = window.innerHeight
@@ -37,10 +33,10 @@ class App extends Component {
         mainCamera='camera'
         width={width}
         height={height}
-        onAnimate={this._onAnimate}
         clearAlpha={.5}
         alpha={true}
         pixelRatio={1}
+        onAnimate={this._onAnimate}
         shadowMapEnabled={true}
       >
         <scene
@@ -49,26 +45,34 @@ class App extends Component {
           <perspectiveCamera
             name='camera'
             fov={100}
-            aspect={.8 / 1}
+            aspect={width / height}
             near={0.1}
-            far={100}
+            far={1000}
             position={this.cameraPosition}
           
           />
           <mesh
-            ref={this.meshRef.bind(this)}
             rotation={this.state.cubeRotation}
-            castShadow={true}
+            position={new THREE.Vector3(-3, 0, 0)} 
           >
-            <sphereGeometry 
-             radius={1.5}
-             widthSegments={40}
-             heightSegments={40}
-            />
-            <meshBasicMaterial
-              color={'violet'}
-            />
-          </mesh>
+          <meshBasicMaterial
+          color={0xff0000}
+          side={THREE.DoubleSide}
+          />
+          <extrudeGeometry
+            settings={ 
+              {
+              amount: 1,
+              bevelEnabled: true,
+              bevelSegments: 2,
+              steps: 2,
+              bevelSize: .2,
+              bevelThickness: .2,
+            }}
+            >
+            {roundedRect(0, 0, 4, 2, 1)}
+          </extrudeGeometry>
+         </mesh>
         </scene>
       </React3>
     );
