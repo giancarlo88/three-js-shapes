@@ -16,14 +16,14 @@ class App extends Component {
       this.setState({
         cubeRotation: new THREE.Euler(
           this.state.cubeRotation.x + 0.01, 
-          this.state.cubeRotation.y + 0.01, 
+          0,
           0
         )
       })
     }
   }
   componentDidMount () {
-        this.mesh.applyMatrix( new THREE.Matrix4().makeScale( .85, .85, 1.55, 1.5 ));
+        this.mesh.applyMatrix( new THREE.Matrix4().makeScale( 1, 1, .33, .25 ));
   }
   meshRef(mesh) {
     this.mesh = mesh;
@@ -49,7 +49,7 @@ class App extends Component {
           <perspectiveCamera
             name='camera'
             fov={100}
-            aspect={.8 / 1}
+            aspect={width / height}
             near={0.1}
             far={100}
             position={this.cameraPosition}
@@ -75,7 +75,7 @@ class App extends Component {
              heightSegments={40}
             />
              <meshPhongMaterial
-            color='violet'
+            color='lightblue'
           /> 
           </mesh>
         </scene>
