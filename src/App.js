@@ -12,14 +12,12 @@ class App extends Component {
 
     this.cameraPosition = new THREE.Vector3(0, 0, 5)
     this.state = {
-      cubeRotation: new THREE.Euler(),
+      rotation: new THREE.Euler(),
     }
-    this._onAnimate = () => {
+    this.onAnimate = () => {
       this.setState({
-        cubeRotation: new THREE.Euler(
-          this.state.cubeRotation.x + 0.01, 
-          this.state.cubeRotation.y + 0.01, 
-          0
+        rotation: new THREE.Euler(
+         0, this.state.rotation.y + 0.01, 0
         )
       })
     }
@@ -27,7 +25,7 @@ class App extends Component {
   render() {
     const width = window.innerWidth
     const height = window.innerHeight
-    let points = []
+
     return (
       <React3 
         mainCamera='camera'
@@ -36,12 +34,13 @@ class App extends Component {
         clearAlpha={.5}
         alpha={true}
         pixelRatio={1}
-        onAnimate={this._onAnimate}
+        onAnimate={this.onAnimate}
         shadowMapEnabled={true}
       >
         <scene
           receiveShadow={true}
           >
+          
           <perspectiveCamera
             name='camera'
             fov={100}
@@ -49,28 +48,37 @@ class App extends Component {
             near={0.1}
             far={1000}
             position={this.cameraPosition}
+            lookAt={new THREE.Vector3(0, 0, 0)}
           
           />
-          <mesh
-            rotation={this.state.cubeRotation}
-            position={new THREE.Vector3(-3, 0, 0)} 
-          >
-          <meshBasicMaterial
-          color={0xff0000}
-          side={THREE.DoubleSide}
+          <ambientLight
+            color={"white"}
           />
+          <directionalLight
+            color={'white'}
+            lookAt={new THREE.Vector3(0, 0, 0)}
+            position={new THREE.Vector3(0, 0, 5)}
+          />
+          
+          <mesh
+            position={THREE.center} 
+            rotation={this.state.rotation}
+          >
+          <meshPhongMaterial
+            color='grey'
+            />
           <extrudeGeometry
             settings={ 
               {
-              amount: 1,
+              amount: .5,
               bevelEnabled: true,
-              bevelSegments: 2,
-              steps: 2,
-              bevelSize: .2,
-              bevelThickness: .2,
+              bevelSegments: 1000,
+              steps: 100,
+              bevelSize: 1,
+              bevelThickness: .5,
             }}
             >
-            {roundedRect(0, 0, 4, 2, 1)}
+            {roundedRect(0, 0, 3, .5, .25)}
           </extrudeGeometry>
          </mesh>
         </scene>
